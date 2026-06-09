@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUROSTORE.ID - Layanan Digital & Penjualan Akun Premium</title>
+    <style>
+        /* TEMA WARNA CYBERPUNK NEO-TOKYO */
+        :root {
+            --bg-dark: #0b0f19;
+            --panel-dark: #111827;
+            --accent-gold: #d4af37;
+            --accent-cyan: #00f0ff;
+            --text-light: #e2e8f0;
+            --text-muted: #9ca3af;
+            --success-green: #10b981;
+            --invoice-bg: #1e293b;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* HEADER & BANNER UTAMA */
+        .hero-banner {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border-bottom: 3px solid var(--accent-gold);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero-banner h1 {
+            color: var(--accent-gold);
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .hero-banner .subtitle {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            margin-top: 5px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* CONTAINER KONTEN */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* INTRO BOX */
+        .intro-box {
+            background-color: var(--panel-dark);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        h2 {
+            color: var(--accent-gold);
+            font-size: 1.6rem;
+            border-bottom: 1px solid #1f2937;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            margin-top: 25px;
+        }
+
+        /* INTERAKTIF TABEL LAYANAN */
+        .clickable-row {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .clickable-row:hover {
+            background-color: #1f2937 !important;
+            box-shadow: inset 4px 0 0 var(--accent-cyan);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--panel-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        th {
+            background-color: #1f2937;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #141e30;
+        }
+
+        .price {
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            text-align: right;
+        }
+
+        .status-badge {
+            background-color: rgba(0, 240, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        .status-badge.instant {
+            background-color: rgba(214, 175, 55, 0.1);
+            color: var(--accent-gold);
+            border: 1px solid rgba(214, 175, 55, 0.2);
+        }
+
+        /* SEKSI REVIEWS / ULASAN BINTANG LIMA */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .reviews-grid { grid-template-columns: 1fr; }
+        }
+
+        .review-card {
+            background-color: var(--panel-dark);
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 15px 20px;
+            position: relative;
+        }
+
+        .stars {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .review-text {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin: 5px 0 10px 0;
+        }
+
+        .reviewer-name {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* SEKSI LAYANAN PELANGGAN / ADMIN OFFICIAL */
+        .cs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .cs-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .cs-grid { grid-template-columns: 1fr; }
+        }
+
+        .cs-card {
+            background-color: var(--panel-dark);
+            border: 1px solid #1f2937;
+            border-top: 3px solid var(--accent-cyan);
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .cs-card h4 {
+            margin: 0 0 5px 0;
+            color: var(--accent-gold);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .cs-platform {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .cs-contact-id {
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #0b0f19;
+            padding: 5px 8px;
+            border-radius: 4px;
+            border: 1px dashed #1f2937;
+            word-break: break-all;
+        }
+
+        /* SEKSI FORMULIR PENGIRIMAN */
+        .form-section {
+            background-color: var(--panel-dark);
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--accent-cyan);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--bg-dark);
+            border: 1px solid #1f2937;
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+        }
+
+        .delivery-note {
+            background-color: rgba(0, 240, 255, 0.05);
+            border: 1px dashed rgba(0, 240, 255, 0.3);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            color: var(--text-muted);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            background-color: #fff;
+        }
+
+        /* TAMPILAN INVOICE DINAMIS */
+        .invoice-container {
+            display: none;
+            background-color: var(--invoice-bg);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .invoice-header {
+            text-align: center;
+            border-bottom: 2px dashed #475569;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .invoice-header h3 {
+            color: var(--accent-gold);
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .invoice-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .invoice-row.total {
+            border-top: 2px solid #475569;
+            padding-top: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .total-payment-box {
+            color: #fff;
+            background-color: #0f172a;
+            padding: 5px 15px;
+            border-radius: 4px;
+            border: 1px solid var(--accent-gold);
+        }
+
+        /* BOX INSTRUKSI BAYAR YANG MUNCUL */
+        .payment-instruction-box {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .payment-instruction-box h4 {
+            margin-top: 0;
+            color: var(--accent-cyan);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .payment-detail-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 0.5px;
+            margin: 10px 0;
+            background-color: var(--panel-dark);
+            padding: 10px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px dashed #475569;
+        }
+
+        .qris-image-placeholder {
+            max-width: 220px;
+            margin: 15px auto;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            background-color: var(--success-green);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #059669;
+            box-shadow: 0 0 15px rgba(5, 150, 105, 0.4);
+        }
+
+        .hint-text {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #1f2937;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero-banner">
+        <h1>KUROSTORE.ID</h1>
+        <div class="subtitle">Anshin & Hayai Digital Services</div>
+    </div>
+
+    <div class="container">
+        
+        <div class="intro-box">
+            <p>Manajemen <strong>KUROSTORE</strong> senantiasa hadir <strong>membantu</strong> menyediakan layanan scan kilat dan penyerahan akun premium dengan jaminan sistem <strong>Anshin (Aman)</strong> & <strong>Hayai (Cepat)</strong>.</p>
+        </div>
+
+        <h2>🛒 PRICELIST LAYANAN UTAMA</h2>
+        <p class="hint-text">💡 Tips Kilat: Klik langsung pada baris tabel harga di bawah untuk memilih opsi produk secara instan!</p>
+
+        <h3>⚡ Jasa Scan Kilat (Verifikasi Aplikasi)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jenis Layanan Jasa Scan</th>
+                    <th>Metode Proses</th>
+                    <th style="text-align: right;">Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable-row" onclick="pilihProduk('scan-wechat', 60000)">
+                    <td>Jasa Scan WeChat (Registrasi / Unban)</td>
+                    <td><span class="status-badge instant">Proses Hayai</span></td>
+                    <td class="price">60k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('scan-qq', 125000)">
+                    <td>Jasa Scan QQ Messenger</td>
+                    <td><span class="status-badge instant">Proses Hayai</span></td>
+                    <td class="price">125k</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>1. Akun WeChat Premium Ready Stock</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Umur / Spesifikasi Akun</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Harga Pas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable-row" onclick="pilihProduk('wc-3m', 90000)">
+                    <td>Akun WeChat Premium (Umur 3 Bulan)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">90k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-6m', 160000)">
+                    <td>Akun WeChat Premium (Umur 6 Bulan)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">160k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-1y', 210000)">
+                    <td>Akun WeChat Premium (Umur 1 Tahun)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">210k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-2y', 305000)">
+                    <td>Akun WeChat Premium (Umur 2 Tahun)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">305k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-3y', 420000)">
+                    <td>Akun WeChat Premium (Umur 3 Tahun)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">420k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-5y', 520000)">
+                    <td>Akun WeChat Premium (Umur 5 Tahun)</td>
+                    <td><span class="status-badge">Sisa Sedikit</span></td>
+                    <td class="price">520k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('wc-full', 620000)">
+                    <td>Akun WeChat (Full Verifikasi Premium)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">620k</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2. Akun Platform QQ & 抖音 (Douyin)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jenis Layanan / Paket Akun</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Harga Pas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="clickable-row" onclick="pilihProduk('qq-std', 193000)">
+                    <td>Akun QQ Standard Ready</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">193k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('qq-verify', 350000)">
+                    <td>Akun QQ + Verifikasi Penuh (QQ + VERRY)</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">350k</td>
+                </tr>
+                <tr class="clickable-row" onclick="pilihProduk('douyin', 550000)">
+                    <td>Akun 抖音 (Douyin) + Verifikasi Full ID</td>
+                    <td><span class="status-badge">Ready Stock</span></td>
+                    <td class="price">550k</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⭐ KATA MEREKA YANG SUDAH ORDER</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">"Proses cepet banget, kenapa baru tau ada website sebagus ini, pelayanan cepet dan profesional! Gak rugi langganan di sini."</div>
+                <div class="reviewer-name">— Pembeli Terverifikasi</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">"Sistemnya anshin dan hayai banget. Klik klik, bayar, langsung diurus instan sama adminnya. Recommended seller kurostore!"</div>
+                <div class="reviewer-name">— R***n</div>
+            </div>
+        </div>
+
+        <h2 id="form-order-title">📝 FORM DATA PENGIRIMAN & DETAIL ORDER</h2>
+        <form class="form-section" id="kuroOrderForm" onsubmit="tampilkanInvoicePembayaran(event)">
+            
+            <div class="form-group">
+                <label for="produk">Layanan / Akun Yang Dipilih:</label>
+                <select id="produk" onchange="perbaruiHargaDropdown()" required>
+                    <option value="" data-harga="0">-- Silakan Pilih Layanan di Atas / Klik Menunya --</option>
+                    <option value="SCAN WeChat" data-harga="60000">SCAN WeChat - 60K</option>
+                    <option value="SCAN QQ" data-harga="125000">SCAN QQ - 125K</option>
+                    <option value="Akun WeChat Premium (3 Bulan)" data-harga="90000">Akun WeChat Premium (Umur 3 Bulan) - 90k</option>
+                    <option value="Akun WeChat Premium (6 Bulan)" data-harga="160000">Akun WeChat Premium (Umur 6 Bulan) - 160k</option>
+                    <option value="Akun WeChat Premium (1 Tahun)" data-harga="210000">Akun WeChat Premium (Umur 1 Tahun) - 210k</option>
+                    <option value="Akun WeChat Premium (2 Tahun)" data-harga="305000">Akun WeChat Premium (Umur 2 Tahun) - 305k</option>
+                    <option value="Akun WeChat Premium (3 Tahun)" data-harga="420000">Akun WeChat Premium (Umur 3 Tahun) - 420k</option>
+                    <option value="Akun WeChat Premium (5 Tahun)" data-harga="520000">Akun WeChat Premium (Umur 5 Tahun) - 520k</option>
+                    <option value="Akun WeChat (Full Verifikasi Premium)" data-harga="620000">Akun WeChat (Full Verifikasi Premium) - 620k</option>
+                    <option value="Akun QQ Standard Ready" data-harga="193000">Akun QQ Standard Ready - 193k</option>
+                    <option value="Akun QQ + Verifikasi Penuh" data-harga="350000">Akun QQ + Verifikasi Penuh (QQ + VERRY) - 350k</option>
+                    <option value="Akun Douyin + Verifikasi Full ID" data-harga="550000">Akun 抖音 (Douyin) + Verifikasi Full ID - 550k</option>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>⭐ KATA MEREKA YANG SUDAH ORDER</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">"Proses cepet banget, kenapa baru tau ada website sebagus ini, pelayanan cepet dan profesional! Gak rugi langganan di sini."</div>
+                <div class="reviewer-name">— Pembeli Terverifikasi</div>
+            </div>
+            <div class="review-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">"Sistemnya anshin dan hayai banget. Klik klik, bayar, langsung diurus instan sama adminnya. Recommended seller kurostore!"</div>
+                <div class="reviewer-name">— R***n</div>
+            </div>
+        </div>
+
+        <h2 id="form-order-title">📝 FORM DATA PENGIRIMAN & DETAIL ORDER</h2>
+        <form class="form-section" id="kuroOrderForm" onsubmit="tampilkanInvoicePembayaran(event)">
+            
+            <div class="form-group">
+                <label for="produk">Layanan / Akun Yang Dipilih:</label>
+                <select id="produk" onchange="perbaruiHargaDropdown()" required>
+                    <option value="" data-harga="0">-- Silakan Pilih Layanan di Atas / Klik Menunya --</option>
+                    <option value="SCAN WeChat" data-harga="60000">SCAN WeChat - 60K</option>
+                    <option value="SCAN QQ" data-harga="125000">SCAN QQ - 125K</option>
+                    <option value="Akun WeChat Premium (3 Bulan)" data-harga="90000">Akun WeChat Premium (Umur 3 Bulan) - 90k</option>
+                    <option value="Akun WeChat Premium (6 Bulan)" data-harga="160000">Akun WeChat Premium (Umur 6 Bulan) - 160k</option>
+                    <option value="Akun WeChat Premium (1 Tahun)" data-harga="210000">Akun WeChat Premium (Umur 1 Tahun) - 210k</option>
+                    <option value="Akun WeChat Premium (2 Tahun)" data-harga="305000">Akun WeChat Premium (Umur 2 Tahun) - 305k</option>
+                    <option value="Akun WeChat Premium (3 Tahun)" data-harga="420000">Akun WeChat Premium (Umur 3 Tahun) - 420k</option>
+                    <option value="Akun WeChat Premium (5 Tahun)" data-harga="520000">Akun WeChat Premium (Umur 5 Tahun) - 520k</option>
+                    <option value="Akun WeChat (Full Verifikasi Premium)" data-harga="620000">Akun WeChat (Full Verifikasi Premium) - 620k</option>
+                    <option value="Akun QQ Standard Ready" data-harga="193000">Akun QQ Standard Ready - 193k</option>
+                    <option value="Akun QQ + Verifikasi Penuh" data-harga="350000">Akun QQ + Verifikasi Penuh (QQ + VERRY) - 350k</option>
+                    <option value="Akun Douyin + Verifikasi Full ID" data-harga="550000">Akun 抖音 (Douyin) + Verifikasi Full ID - 550k</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp Anda (Aktif):</label>
+                <input type="tel" id="whatsapp" placeholder="Contoh: 081234567xxx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Alamat Email Anda:</label>
+                <input type="email" id="email" placeholder="Contoh: pembeli@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="metode">Metode Pembayaran Yang Ingin Digunakan:</label>
+                <select id="metode" required>
+                    <option value="">-- Pilih Metode Pembayaran --</option>
+                    <option value="QRIS">QRIS ALL PAYMENT (Otomatis)</option>
+                    <option value="BCA">TRANSFER BANK BCA</option>
+                    <option value="SeaBank">TRANSFER BANK SEABANK</option>
+                    <option value="DANA">E-WALLET DANA</option>
+                    <option value="GOPAY">E-WALLET GOPAY</option>
+                    <option value="OVO">E-WALLET OVO</option>
+                </select>
+            </div>
+
+            <div class="delivery-note">
+                ⚡ Setelah menekan tombol konfirmasi di bawah, rincian bank/QRIS beserta total uang pas akan langsung tampil secara instan di layar Anda.
+            </div>
+
+            <button type="submit" class="submit-btn">Konfirmasi Pesanan & Tampilkan Pembayaran</button>
+        </form>
+
+        <div class="invoice-container" id="invoiceBox">
+            <div class="invoice-header">
+                <h3>🧾 DETAIL INVOICE & INSTRUKSI PEMBAYARAN</h3>
+                <p style="margin: 5px 0 0 0; color: var(--text-muted); font-size: 0.9rem;">Selesaikan pembayaran sesuai detail instruksi di bawah ini:</p>
+            </div>
+            
+            <div class="invoice-row">
+                <span><strong>Layanan Dipilih:</strong></span>
+                <span id="invProduk" style="color: var(--accent-cyan); font-weight: bold;"></span>
+            </div>
+            <div class="invoice-row">
+                <span><strong>WhatsApp Pengiriman:</strong></span>
+                <span id="invWA"></span>
+            </div>
+            <div class="invoice-row">
+                <span><strong>Email Pengiriman:</strong></span>
+                <span id="invEmail"></span>
+            </div>
+            
+            <div class="invoice-row total">
+                <span>JUMLAH YANG PERLU DIBAYAR:</span>
+                <span id="invHarga" class="total-payment-box"></span>
+            </div>
+
+            <div class="payment-instruction-box" id="instructionBox">
+                <h4 id="instructionTitle">METODE PEMBAYARAN</h4>
+                <div id="instructionContent"></div>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.05); padding: 12px; border-radius: 4px; margin-top: 15px; font-size: 0.9rem; border-left: 3px solid var(--success-green); text-align: center;">
+                ✅ Setelah melakukan transfer uang sesuai nominal di atas, harap simpan screenshot bukti transaksi, lalu klik tombol di bawah untuk kirim bukti ke admin.
+            </div>
+
+            <button class="whatsapp-btn" onclick="kirimBuktiWhatsApp()">Saya Sudah Bayar, Kirim Bukti via WhatsApp</button>
+        </div>
+
+        <h2>📞 HUBUNGI LAYANAN PELANGGAN OFFICIAL</h2>
+        <p class="hint-text">Punya pertanyaan seputar layanan kami sebelum membeli? Hubungi tim manajemen kami melalui kontak resmi di bawah ini:</p>
+        <div class="cs-grid">
+            <div class="cs-card">
+                <h4>Admin 1</h4>
+                <span class="cs-platform">WeChat</span>
+                <div class="cs-contact-id">KUROSTORE_ID</div>
+            </div>
+            <div class="cs-card">
+                <h4>Admin 2</h4>
+                <span class="cs-platform">Telegram</span>
+                <div class="cs-contact-id">@KUROSTORE_ID</div>
+            </div>
+            <div class="cs-card">
+                <h4>Admin 3</h4>
+                <span class="cs-platform">WhatsApp</span>
+                <div class="cs-contact-id">0895634550641</div>
+            </div>
+            <div class="cs-card">
+                <h4>Admin 4</h4>
+                <span class="cs-platform">Facebook</span>
+                <div class="cs-contact-id">KUROSTORE ID</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Manajemen KUROSTORE &copy; 2026. Hak Cipta Dilindungi.<br>
+        <em>Menyediakan Kebutuhan Sosial Media Aman, Cepat, Terpercaya — Anshin, Hayai, Trusted.</em></p>
+    </div>
+
+    <script>
+        let hargaGlobal = 0;
+
+        // Fungsi saat baris tabel produk diklik
+        function pilihProduk(valueText, harga) {
+            const selectElement = document.getElementById('produk');
+            
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value.toLowerCase().includes(valueText.toLowerCase())) {
+                    selectElement.selectedIndex = i;
+                    hargaGlobal = harga;
+                    break;
+                }
+            }
+            document.getElementById('form-order-title').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => { document.getElementById('whatsapp').focus(); }, 500);
+        }
+
+        // Fungsi saat dropdown produk diubah manual
+        function perbaruiHargaDropdown() {
+            const selectElement = document.getElementById('produk');
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            hargaGlobal = parseInt(selectedOption.getAttribute('data-harga')) || 0;
+        }
+
+        // Format angka ke Rupiah
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toLocaleString('id-ID');
+        }
+
+        // Logika render invoice & detail instruksi bayar dinamis
+        function tampilkanInvoicePembayaran(e) {
+            e.preventDefault();
+            
+            const produk = document.getElementById('produk').value;
+            const waPembeli = document.getElementById('whatsapp').value;
+            const emailPembeli = document.getElementById('email').value;
+            const metode = document.getElementById('metode').value;
+
+            if (hargaGlobal === 0) {
+                alert("Silakan pilih jenis layanan terlebih dahulu!");
+                return;
+            }
+
+            // Memasukkan data identitas ke dalam invoice
+            document.getElementById('invProduk').innerText = produk;
+            document.getElementById('invWA').innerText = waPembeli;
+            document.getElementById('invEmail').innerText = emailPembeli;
+            document.getElementById('invHarga').innerText = formatRupiah(hargaGlobal);
+
+            const titleElement = document.getElementById('instructionTitle');
+            const contentElement = document.getElementById('instructionContent');
+            
+            let htmlInstruksi = "";
+
+            // Menyesuaikan instruksi bank / QRIS berdasarkan input pilihan user
+            if (metode === "QRIS") {
+                titleElement.innerText = "📱 PEMBAYARAN VIA QRIS ALL PAYMENT";
+                htmlInstruksi = `<p>Silakan scan kode QRIS resmi KUROSTORE di bawah menggunakan aplikasi M-Banking atau E-Wallet Anda:</p>` +
+                                `<img src="1780237499930.png" alt="QRIS KUROSTORE" class="qris-image-placeholder">` +
+                                `<p style="font-size: 0.9rem; color: var(--accent-gold);">NMID: <strong>ID1024365599355</strong><br>Pastikan nama merchant: <strong>KUROSTORE / KURO iD</strong></p>`;
+            } else if (metode === "BCA") {
+                titleElement.innerText = "🏛️ TRANSFER BANK BCA";
+                htmlInstruksi = `<p>Silakan transfer dana ke rekening BCA resmi Manajemen KUROSTORE berikut:</p>` +
+                                `<div class="payment-detail-text">6175605995</div>` +
+                                `<p style="font-size:0.95rem;">Pastikan nominal yang ditransfer tepat: <strong style="color:var(--accent-gold);">${formatRupiah(hargaGlobal)}</strong></p>`;
+            } else if (metode === "SeaBank") {
+                titleElement.innerText = "🏛️ TRANSFER BANK SEABANK";
+                htmlInstruksi = `<p>Silakan transfer dana ke rekening SeaBank resmi Manajemen KUROSTORE berikut:</p>` +
+                                `<div class="payment-detail-text">901660264617</div>` +
+                                `<p style="font-size:0.95rem;">Pastikan nominal yang ditransfer tepat: <strong style="color:var(--accent-gold);">${formatRupiah(hargaGlobal)}</strong></p>`;
+            } else if (metode === "DANA") {
+                titleElement.innerText = "📱 TOP UP / TRANSFER E-WALLET DANA";
+                htmlInstruksi = `<p>Silakan kirim saldo ke akun DANA resmi Manajemen KUROSTORE berikut:</p>` +
+                                `<div class="payment-detail-text">0831 9650 6142</div>` +
+                                `<p style="font-size:0.95rem;">Pastikan nominal transfer pas: <strong style="color:var(--accent-gold);">${formatRupiah(hargaGlobal)}</strong></p>`;
+            } else if (metode === "GOPAY") {
+                titleElement.innerText = "📱 TOP UP / TRANSFER E-WALLET GOPAY";
+                htmlInstruksi = `<p>Silakan kirim saldo ke akun GoPay resmi Manajemen KUROSTORE berikut:</p>` +
+                                `<div class="payment-detail-text">0831 9650 6142</div>` +
+                                `<p style="font-size:0.95rem;">Pastikan nominal transfer pas: <strong style="color:var(--accent-gold);">${formatRupiah(hargaGlobal)}</strong></p>`;
+            } else if (metode === "OVO") {
+                titleElement.innerText = "📱 TOP UP / TRANSFER E-WALLET OVO";
+                htmlInstruksi = `<p>Silakan kirim saldo ke akun OVO resmi Manajemen KUROSTORE berikut:</p>` +
+                                `<div class="payment-detail-text">0831 7720 6301</div>` +
+                                `<p style="font-size:0.95rem;">Pastikan nominal transfer pas: <strong style="color:var(--accent-gold);">${formatRupiah(hargaGlobal)}</strong></p>`;
+            }
+
+            contentElement.innerHTML = htmlInstruksi;
+
+            // Memunculkan box invoice dan melakukan smooth scroll ke area invoice tersebut
+            const invoiceBox = document.getElementById('invoiceBox');
+            invoiceBox.style.display = 'block';
+            invoiceBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mengirim rekap data rapih langsung ke WA Admin Utama
+        function kirimBuktiWhatsApp() {
+            const produk = document.getElementById('invProduk').innerText;
+            const waPembeli = document.getElementById('invWA').innerText;
+            const emailPembeli = document.getElementById('invEmail').innerText;
+            const totalBayar = document.getElementById('invHarga').innerText;
+            const metodePilihan = document.getElementById('metode').value;
+            
+            // Nomor WhatsApp resmi Admin Utama
+            const nomorAdmin = "6283196506142"; 
+            
+            const teksWhatsApp = `Halo Manajemen KUROSTORE, saya sudah menyelesaikan pembayaran.%0A%0A` +
+                                 `• *Layanan:* ${produk}%0A` +
+                                 `• *No. WA Pembeli:* ${waPembeli}%0A` +
+                                 `• *Email Pengiriman:* ${emailPembeli}%0A` +
+                                 `• *Metode Bayar:* ${metodePilihan}%0A` +
+                                 `• *Total Transfer:* *${totalBayar}*%0A%0A` +
+                                 `Berikut saya sertakan lampiran bukti transfer sukses. Mohon diproses pengiriman datanya secara Hayai ya. Terima kasih!`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=${nomorAdmin}&text=${teksWhatsApp}`, '_blank');
+        }
+    </script>
+
+</body>
+</html>
